@@ -1,5 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
+from database import guardar_medicion
+
 # ==============================
 # CONFIGURACIÓN MQTT
 # ==============================
@@ -33,7 +35,15 @@ def on_message(client, userdata, msg):
     try:
 
         mensaje = msg.payload.decode()
+
         datos = json.loads(mensaje)
+
+        guardar_medicion(
+            datos["temperatura"],
+            datos["humedad"],
+            datos["suelo"],
+            datos["ph"]
+        )
 
         print("\n===== NUEVA LECTURA =====")
 
@@ -41,13 +51,12 @@ def on_message(client, userdata, msg):
         print(f"Humedad aire    : {datos['humedad']} %")
         print(f"Humedad suelo   : {datos['suelo']} %")
         print(f"pH              : {datos['ph']}")
-        print(f"Timestamp ESP32 : {datos['timestamp']}")
 
-        print()
+        print("Medición almacenada correctamente.\n")
 
     except Exception as e:
 
-        print(f"Error al procesar el mensaje: {e}")
+        print(f"Error: {e}")
 
 # ==============================
 # CLIENTE MQTT
