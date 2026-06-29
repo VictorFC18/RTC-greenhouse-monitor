@@ -1,14 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 from database import guardar_medicion
-
-# ==============================
-# CONFIGURACIÓN MQTT
-# ==============================
-
-BROKER = "192.168.100.95"
-PORT = 1883
-TOPIC = "invernadero/sensores"
+from config import BROKER, PORT, TOPIC
 
 # ==============================
 # CALLBACK DE CONEXIÓN
@@ -59,20 +52,19 @@ def on_message(client, userdata, msg):
         print(f"Error: {e}")
 
 # ==============================
-# CLIENTE MQTT
+# CLIENTE MQTT Y CONEXIÓN
 # ==============================
 
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+def iniciar_mqtt():
 
-client.on_connect = on_connect
-client.on_message = on_message
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
-# ==============================
-# CONEXIÓN
-# ==============================
+    client.on_connect = on_connect
 
-print("Conectando al broker...")
+    client.on_message = on_message
 
-client.connect(BROKER, PORT)
+    print("Conectando al broker...")
 
-client.loop_forever()
+    client.connect(BROKER, PORT)
+
+    client.loop_forever()

@@ -1,6 +1,6 @@
 import sqlite3
 
-DATABASE_NAME = "invernadero.db"
+from config import DATABASE_NAME
 
 def crear_base_datos():
 
