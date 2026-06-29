@@ -1,5 +1,7 @@
 import json
 import paho.mqtt.client as mqtt
+import system_state
+from datetime import datetime
 
 from config import BROKER, PORT, TOPIC
 from database import guardar_medicion, obtener_ultimas_mediciones
@@ -15,6 +17,8 @@ def on_connect(client, userdata, flags, reason_code, properties=None):
 
         print("Conectado al broker MQTT")
 
+        system_state.mqtt_conectado = True
+        
         client.subscribe(TOPIC)
 
         print(f"Suscrito a: {TOPIC}")
@@ -36,6 +40,8 @@ def on_message(client, userdata, msg):
 
         datos = json.loads(mensaje)
 
+        system_state.ultima_medicion = datetime.now()
+        
         guardar_medicion(
             datos["temperatura"],
             datos["humedad"],
@@ -70,6 +76,8 @@ def on_message(client, userdata, msg):
             )
 
         print()
+        
+        print(f"Última medición recibida: {system_state.ultima_medicion}")
 
     except Exception as e:
 

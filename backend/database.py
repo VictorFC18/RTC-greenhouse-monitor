@@ -82,3 +82,12 @@ def obtener_ultimas_mediciones(limite=5):
     conexion.close()
 
     return [dict(fila) for fila in registros]
+
+def obtener_ultima_medicion():
+
+    registros = obtener_ultimas_mediciones(1)
+
+    if registros:
+        return registros[0]
+
+    return None
