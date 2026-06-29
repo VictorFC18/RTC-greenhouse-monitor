@@ -18,7 +18,7 @@ def crear_base_datos():
 
             id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            timestamp DATETIME DEFAULT (datetime('now', 'localtime')),
 
             temperatura REAL,
 
@@ -66,6 +66,8 @@ def obtener_ultimas_mediciones(limite=5):
 
     conexion = sqlite3.connect(DATABASE_NAME)
 
+    conexion.row_factory = sqlite3.Row
+
     cursor = conexion.cursor()
 
     cursor.execute("""
@@ -79,4 +81,4 @@ def obtener_ultimas_mediciones(limite=5):
 
     conexion.close()
 
-    return registros
+    return [dict(fila) for fila in registros]

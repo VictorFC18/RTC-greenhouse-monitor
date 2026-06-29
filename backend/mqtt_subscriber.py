@@ -59,14 +59,14 @@ def on_message(client, userdata, msg):
         print("-" * 75)
 
         for fila in registros:
-
+        
             print(
-                f"{fila[0]:<4}"
-                f"{fila[1]:<20}"
-                f"{fila[2]:<12.1f}"
-                f"{fila[3]:<12.1f}"
-                f"{fila[4]:<13}"
-                f"{fila[5]:<8.2f}"
+                f"{fila['id']:<4}"
+                f"{fila['timestamp']:<20}"
+                f"{fila['temperatura']:<12.1f}"
+                f"{fila['humedad_aire']:<12.1f}"
+                f"{fila['humedad_suelo']:<13}"
+                f"{fila['ph']:<8.2f}"
             )
 
         print()
