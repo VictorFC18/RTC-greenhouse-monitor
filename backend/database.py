@@ -2,6 +2,11 @@ import sqlite3
 
 from config import DATABASE_NAME
 
+
+# =====================================
+# CREAR BASE DE DATOS
+# =====================================
+
 def crear_base_datos():
 
     conexion = sqlite3.connect(DATABASE_NAME)
@@ -9,26 +14,31 @@ def crear_base_datos():
     cursor = conexion.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS mediciones (
+        CREATE TABLE IF NOT EXISTS mediciones (
 
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-        temperatura REAL,
+            temperatura REAL,
 
-        humedad_aire REAL,
+            humedad_aire REAL,
 
-        humedad_suelo INTEGER,
+            humedad_suelo INTEGER,
 
-        ph REAL
+            ph REAL
 
-    )
+        )
     """)
 
     conexion.commit()
 
     conexion.close()
+
+
+# =====================================
+# GUARDAR MEDICIÓN
+# =====================================
 
 def guardar_medicion(temperatura, humedad_aire, humedad_suelo, ph):
 
@@ -46,3 +56,27 @@ def guardar_medicion(temperatura, humedad_aire, humedad_suelo, ph):
     conexion.commit()
 
     conexion.close()
+
+
+# =====================================
+# OBTENER ÚLTIMAS MEDICIONES
+# =====================================
+
+def obtener_ultimas_mediciones(limite=5):
+
+    conexion = sqlite3.connect(DATABASE_NAME)
+
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM mediciones
+        ORDER BY id DESC
+        LIMIT ?
+    """, (limite,))
+
+    registros = cursor.fetchall()
+
+    conexion.close()
+
+    return registros
