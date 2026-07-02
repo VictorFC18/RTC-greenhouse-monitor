@@ -51,6 +51,13 @@ def mediciones():
 
     return registros
 
+@app.get("/historial")
+def historial():
+
+    registros = obtener_ultimas_mediciones(60)
+
+    return registros
+
 @app.get("/estado")
 def estado():
 

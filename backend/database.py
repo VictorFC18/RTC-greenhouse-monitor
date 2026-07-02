@@ -77,11 +77,22 @@ def obtener_ultimas_mediciones(limite=5):
         LIMIT ?
     """, (limite,))
 
-    registros = cursor.fetchall()
+    registros = []
+
+    for fila in cursor.fetchall():
+
+        registro = dict(fila)
+
+        # Convertir timestamp al formato ISO 8601
+        if registro["timestamp"]:
+            registro["timestamp"] = registro["timestamp"].replace(" ", "T")
+
+        registros.append(registro)
 
     conexion.close()
 
-    return [dict(fila) for fila in registros]
+    return registros
+
 
 def obtener_ultima_medicion():
 
