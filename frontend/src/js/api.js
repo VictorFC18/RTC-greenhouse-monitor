@@ -6,7 +6,7 @@ async function obtenerUltimaMedicion() {
 
     try {
 
-        const respuesta = await fetch("/mediciones");
+        const respuesta = await fetch("/api/mediciones");
 
         if (!respuesta.ok) {
             throw new Error("Error consultando la API");
@@ -38,7 +38,7 @@ async function obtenerHistorial() {
 
     try {
 
-        const respuesta = await fetch("/historial");
+        const respuesta = await fetch("/api/historial");
 
         if (!respuesta.ok) {
 

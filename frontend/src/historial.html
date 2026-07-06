@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invernadero IoT</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- ==========================================
+             SIDEBAR
+        =========================================== -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <h1>RTC</h1>
+
+                <p>Greenhouse Monitor</p>
+
+            </div>
+
+            <nav class="menu">
+            
+                <a
+                    href="/"
+                    class="menu-item"
+                >
+            
+                    Dashboard
+            
+                </a>
+            
+            
+                <a
+                    href="/historial"
+                    class="menu-item active"
+                >
+            
+                    Historial
+            
+                </a>
+            
+            </nav>
+
+            <div class="system-status">
+
+                <p class="status-title">
+
+                    Estado del sistema
+
+                </p>
+
+                <div class="status-online">
+
+                    <span class="status-dot"></span>
+
+                    <span>Conectado</span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- ==========================================
+             CONTENIDO PRINCIPAL
+        =========================================== -->
+
+		<main class="main-content">
+		
+		    <!-- =======================================
+		                    HEADER HISTORIAL
+		    ======================================== -->
+		
+		    <section class="page-header">
+		
+		        <div>
+		
+		            <h1>Historial de mediciones</h1>
+		
+		            <p>
+		                Consulta y análisis de los registros
+		                almacenados por el sistema
+		            </p>
+		
+		        </div>
+		
+		    </section>
+		
+		
+		    <!-- =======================================
+		                    FILTROS
+		    ======================================== -->
+		
+		    <section class="history-filters">
+
+			    <p
+			        id="filter-message"
+			        class="filter-message"
+			    ></p>
+		
+		        <div class="filter-group">
+		
+		            <label for="period-filter">
+		                Periodo
+		            </label>
+		
+		            <select id="period-filter">
+		
+		                <option value="hour">
+		                    Última hora
+		                </option>
+		
+		                <option value="today">
+		                    Hoy
+		                </option>
+		
+		                <option value="week">
+		                    Últimos 7 días
+		                </option>
+		                
+						<option value="all">
+						        Todo el historial
+						    </option>
+						    
+		                <option value="custom">
+		                    Personalizado
+		                </option>
+		
+		            </select>
+		
+		        </div>
+		
+		
+		        <div class="filter-group">
+		
+		            <label for="date-from">
+		                Desde
+		            </label>
+		
+		            <input
+		                type="datetime-local"
+		                id="date-from"
+		            >
+		
+		        </div>
+		
+		
+		        <div class="filter-group">
+		
+		            <label for="date-to">
+		                Hasta
+		            </label>
+		
+		            <input
+		                type="datetime-local"
+		                id="date-to"
+		            >
+		
+		        </div>
+		
+		
+		        <button
+		            id="apply-filters"
+		            class="primary-button"
+		        >
+		
+		            Aplicar filtros
+		
+		        </button>
+		
+		    </section>
+		
+		
+		    <!-- =======================================
+		                    RESUMEN
+		    ======================================== -->
+		
+		    <section class="history-summary">
+		
+		        <div class="summary-card">
+		
+		            <span class="summary-label">
+		                Registros
+		            </span>
+		
+		            <strong
+		                id="summary-records"
+		                class="summary-value"
+		            >
+		                --
+		            </strong>
+		
+		        </div>
+		
+		
+		        <div class="summary-card">
+		
+		            <span class="summary-label">
+		                Temperatura promedio
+		            </span>
+		
+		            <strong class="summary-value">
+		
+		                <span id="summary-temp">--</span>
+		
+		                <small>°C</small>
+		
+		            </strong>
+		
+		        </div>
+		
+		
+		        <div class="summary-card">
+		
+		            <span class="summary-label">
+		                Humedad promedio
+		            </span>
+		
+		            <strong class="summary-value">
+		
+		                <span id="summary-humidity">--</span>
+		
+		                <small>%</small>
+		
+		            </strong>
+		
+		        </div>
+		
+		
+		        <div class="summary-card">
+		
+		            <span class="summary-label">
+		                TDS promedio
+		            </span>
+		
+		            <strong class="summary-value">
+		
+		                <span id="summary-tds">--</span>
+		
+		                <small>ppm</small>
+		
+		            </strong>
+		
+		        </div>
+		
+		    </section>
+		
+		
+		    <!-- =======================================
+		                    TABLA HISTÓRICA
+		    ======================================== -->
+		
+		    <section class="history-table-card">
+		
+		        <div class="history-table-header">
+		
+		            <div>
+		
+		                <h2>
+		                    Historial de registros
+		                </h2>
+		
+		                <p>
+		                    Mediciones almacenadas en el sistema
+		                </p>
+		
+		            </div>
+		
+		
+		            <button
+		                id="export-csv"
+		                class="secondary-button"
+		            >
+		
+		                Exportar CSV
+		
+		            </button>
+		
+		        </div>
+		
+		
+		        <div class="history-table-container">
+		
+		            <table class="history-table">
+		
+		                <thead>
+		
+		                    <tr>
+		
+		                        <th>Fecha y hora</th>
+		
+		                        <th>Temperatura</th>
+		
+		                        <th>Hum. aire</th>
+		
+		                        <th>Hum. suelo</th>
+		
+		                        <th>pH</th>
+		
+		                        <th>TDS</th>
+		
+		                    </tr>
+		
+		                </thead>
+		
+		
+		                <tbody id="history-table-body">
+		
+		                    <tr>
+		
+		                        <td colspan="6">
+		
+		                            No hay datos cargados
+		
+		                        </td>
+		
+		                    </tr>
+		
+		                </tbody>
+		
+		            </table>
+		
+		        </div>
+		
+		
+		        <div class="history-pagination">
+		
+		            <button id="previous-page">
+		                ‹
+		            </button>
+		
+		            <span id="page-info">
+		                Página 1
+		            </span>
+		
+		            <button id="next-page">
+		                ›
+		            </button>
+		
+		        </div>
+		
+		    </section>
+		
+		</main>
+
+    </div>
+
+	<script src="/js/api.js"></script>
+	
+	<script src="/js/historial.js"></script>
+	
+	<script src="/js/clock.js"></script>
+
+</body>
+
+</html>

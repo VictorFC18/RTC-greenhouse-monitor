@@ -46,7 +46,8 @@ def on_message(client, userdata, msg):
             datos["temperatura"],
             datos["humedad"],
             datos["suelo"],
-            datos["ph"]
+            datos["ph"],
+            datos["tds"]
         )
 
         registros = obtener_ultimas_mediciones()
@@ -54,30 +55,36 @@ def on_message(client, userdata, msg):
         print("\n===== ÚLTIMAS MEDICIONES =====\n")
 
         print(
-            f"{'ID':<4}"
+            f"{'ID':<8}"
             f"{'Timestamp':<20}"
             f"{'Temp (°C)':<12}"
             f"{'Hum. Aire':<12}"
             f"{'Hum. Suelo':<13}"
             f"{'pH':<8}"
+            f"{'TDS (ppm)':<12}"
         )
 
-        print("-" * 75)
+        print("-" * 87)
 
         for fila in registros:
         
+            tds = fila["tds"]
+        
+            tds_texto = (
+                f"{tds:.1f}"
+                if tds is not None
+                else "--"
+            )
+        
             print(
-                f"{fila['id']:<4}"
+                f"{fila['id']:<8}"
                 f"{fila['timestamp']:<20}"
                 f"{fila['temperatura']:<12.1f}"
                 f"{fila['humedad_aire']:<12.1f}"
                 f"{fila['humedad_suelo']:<13}"
                 f"{fila['ph']:<8.2f}"
+                f"{tds_texto:<12}"
             )
-
-        print()
-        
-        print(f"Última medición recibida: {system_state.ultima_medicion}")
 
     except Exception as e:
 
