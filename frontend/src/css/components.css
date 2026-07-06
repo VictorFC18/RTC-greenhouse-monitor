@@ -1,0 +1,414 @@
+
+.kpi-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(5, minmax(220px,1fr));
+
+    gap:20px;
+
+    align-items:start;
+
+}
+
+@media (max-width:1400px){
+
+    .kpi-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+@media (max-width:900px){
+
+    .kpi-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:650px){
+
+    .kpi-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+.kpi-card{
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow);
+
+    padding: 20px;
+
+    transition: .25s;
+
+    min-height: 210px;
+
+}
+
+.kpi-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 28px rgba(15,23,42,.08);
+
+}
+
+.kpi-card:hover .icon-circle{
+
+    transform:scale(1.08);
+
+    transition:.25s;
+}
+
+.kpi-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+}
+
+.sensor-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:.85rem;
+
+    color:var(--text-light);
+
+}
+
+.icon-circle{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-shrink:0;
+
+    border:1px solid rgba(255,255,255,.6);
+    
+    transition:transform .25s ease;
+
+}
+
+.icon-circle img{
+
+    width:22px;
+
+    height:22px;
+
+}
+
+/* Temperatura */
+
+.icon-circle.temperature{
+
+    background:#FEF2F2;
+
+    color:#DC2626;
+
+}
+
+
+/* Humedad */
+
+.icon-circle.humidity{
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+}
+
+
+/* Humedad del suelo */
+
+.icon-circle.soil{
+
+    background:#ECFDF5;
+
+    color:#16A34A;
+
+}
+
+
+/* pH */
+
+.icon-circle.ph{
+
+    background:#F5F3FF;
+
+    color:#7C3AED;
+
+}
+
+
+/* Conductividad */
+
+.icon-circle.ec{
+
+    background:#FEFCE8;
+
+    color:#CA8A04;
+
+}
+
+
+.kpi-content{
+
+    margin-top:18px;
+
+}
+
+.sensor-name{
+
+    color: var(--text-light);
+
+    font-size: .95rem;
+
+    margin-bottom:4px;
+
+}
+
+.sensor-value{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    font-size:2.8rem;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+.unit{
+
+    font-size:1.4rem;
+
+    color:var(--text-light);
+
+    margin-bottom:8px;
+
+}
+
+.kpi-footer{
+
+    margin-top:18px;
+
+}
+
+.trend{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    background:#F8FAFC;
+
+    border:1px solid var(--border);
+
+    color:#475569;
+
+    font-size:.82rem;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.trend-up{
+
+    background:#ECFDF5;
+
+    color:#15803D;
+
+    border-color:#BBF7D0;
+
+}
+
+.trend-down{
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    border-color:#BFDBFE;
+
+}
+
+.trend-stable{
+
+    background:#F8FAFC;
+
+    color:#64748B;
+
+}
+
+/* ===========================
+   Estado de las tarjetas
+=========================== */
+
+.kpi-online{
+
+    opacity:1;
+
+    transition:.3s;
+
+}
+
+.kpi-warning{
+
+    opacity:.85;
+
+    border-color:#FACC15;
+
+    transition:.3s;
+
+}
+
+.kpi-offline{
+
+    opacity:.60;
+
+    filter:grayscale(40%);
+
+    transform:scale(.99);
+
+}
+
+/*==========================================
+  Tarjeta del gráfico
+==========================================*/
+
+.chart-card{
+
+    margin-top:30px;
+
+    background:#FFFFFF;
+
+    border-radius:20px;
+
+    padding:24px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+
+}
+
+.chart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.chart-header h2{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#1F2937;
+
+}
+
+.chart-header p{
+
+    margin-top:4px;
+
+    color:#6B7280;
+
+    font-size:14px;
+
+}
+
+.chart-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:14px;
+
+    color:#6B7280;
+
+}
+
+.chart-body{
+
+    position:relative;
+
+    height:340px;
+
+}
+
+/*==========================================
+  Gráficos inferiores
+==========================================*/
+
+.bottom-charts{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+    margin-top:24px;
+
+}
+
+.chart-small{
+
+    position:relative;
+
+    height:260px;
+
+}

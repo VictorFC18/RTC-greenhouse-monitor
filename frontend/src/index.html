@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invernadero IoT</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- ==========================================
+             SIDEBAR
+        =========================================== -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <h1>RTC</h1>
+
+                <p>Greenhouse Monitor</p>
+
+            </div>
+
+            <nav class="menu">
+
+                <a href="#" class="menu-item active">
+
+                    Dashboard
+
+                </a>
+
+            </nav>
+
+            <div class="system-status">
+
+                <p class="status-title">
+
+                    Estado del sistema
+
+                </p>
+
+                <div class="status-online">
+
+                    <span class="status-dot"></span>
+
+                    <span>Conectado</span>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- ==========================================
+             CONTENIDO PRINCIPAL
+        =========================================== -->
+
+        <main class="main-content">
+
+            <!-- ======================================
+                 TOPBAR
+            ======================================= -->
+
+            <header class="topbar">
+
+                <div class="header-left">
+
+                    <h1>Invernadero IoT</h1>
+
+                    <p>Sistema de monitoreo en tiempo real</p>
+
+                </div>
+
+                <div class="header-right">
+
+                    <div class="datetime">
+
+                        <span id="fecha"></span>
+
+                        <span id="hora"></span>
+
+                    </div>
+
+                    <div class="header-status">
+
+                        <span class="status-dot"></span>
+
+                        <span id="estado-texto">
+
+                            Sistema operativo
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- ======================================
+                 CONTENIDO
+            ======================================= -->
+
+            <section class="content">
+
+                <div class="kpi-grid">
+
+                    <!-- ==============================
+                         KPI TEMPERATURA
+                    =============================== -->
+
+                    <div 
+						id="temp-card"
+						
+                    	class="kpi-card">
+
+                        <div class="kpi-header">
+
+                            <div class="sensor-status">
+
+                                <span class="status-dot"></span>
+
+                                <span id="temp-status">
+
+                                    En línea
+
+                                </span>
+
+                            </div>
+
+                            <div class="icon-circle temperature">
+
+                                <img
+                                    src="/icons/sensors/thermometer.svg"
+                                    alt="Temperatura">
+
+                            </div>
+
+                        </div>
+
+                        <div class="kpi-content">
+
+                            <p class="sensor-name">
+
+                                Temperatura
+
+                            </p>
+
+                            <h2 class="sensor-value">
+
+                                <span id="temp-value">
+
+                                    --
+
+                                </span>
+
+                                <span class="unit">
+
+                                    °C
+
+                                </span>
+
+                            </h2>
+
+                        </div>
+
+                        <div class="kpi-footer">
+
+                            <span
+                                id="temp-trend"
+                                class="trend">
+
+                                ▬ Primera lectura
+
+                            </span>
+
+                        </div>
+
+                    </div>
+					<!-- ===================================
+							KPI - HUMEDAD
+					=================================== -->
+                    
+                    <div 
+						id = "air-card"
+						
+                    	class="kpi-card">
+                    
+                        <div class="kpi-header">
+                    
+                            <div class="sensor-status">
+                    
+                                <span class="status-dot"></span>
+                    
+                                <span id="air-status">--</span>
+                    
+                            </div>
+                    
+                            <div class="icon-circle humidity">
+                    
+                                <img src="/icons/sensors/droplets.svg">
+                    
+                            </div>
+                    
+                        </div>
+                    
+                        <div class="kpi-content">
+                    
+                            <p class="sensor-name">
+                    
+                                Humedad del aire
+                    
+                            </p>
+                    
+                            <h2 class="sensor-value">
+                    
+                                <span id="air-value">--</span>
+                    
+                                <span class="unit">%</span>
+                    
+                            </h2>
+                    
+                        </div>
+                    
+                        <div class="kpi-footer">
+                    
+                            <span
+                                id="air-trend"
+                                class="trend trend-stable">
+                    
+                                ---
+                    
+                            </span>
+                    
+                        </div>
+                    
+                    </div>
+
+                    <!-- =====================================
+                                   HUMEDAD EN LA TIERRA
+                    ======================================= -->
+
+                    <div 
+						id = "soil-card"
+						
+                    	class="kpi-card">
+                    
+                        <div class="kpi-header">
+                    
+                            <div class="sensor-status">
+                    
+                                <span class="status-dot"></span>
+                    
+                                <span id="soil-status">--</span>
+                    
+                            </div>
+                    
+                            <div class="icon-circle soil">
+                    
+                                <img src="/icons/sensors/sprout.svg">
+                    
+                            </div>
+                    
+                        </div>
+                    
+                        <div class="kpi-content">
+                    
+                            <p class="sensor-name">
+                    
+                                Humedad del suelo
+                    
+                            </p>
+                    
+                            <h2 class="sensor-value">
+                    
+                                <span id="soil-value">--</span>
+                    
+                                <span class="unit">%</span>
+                    
+                            </h2>
+                    
+                        </div>
+                    
+                        <div class="kpi-footer">
+                    
+                            <span
+                                id="soil-trend"
+                                class="trend trend-stable">
+                    
+                                ---
+                    
+                            </span>
+                    
+                        </div>
+                    
+                    </div>
+
+                    <!-- ================================
+                    			NIVEL DE PH
+                    	============================== -->
+                    <div 
+						id="ph-card"
+						
+                    	class="kpi-card">
+                    
+                        <div class="kpi-header">
+                    
+                            <div class="sensor-status">
+                    
+                                <span class="status-dot"></span>
+                    
+                                <span id="ph-status">--</span>
+                    
+                            </div>
+                    
+                            <div class="icon-circle ph">
+                    
+                                <img src="/icons/sensors/flask-conical.svg">
+                    
+                            </div>
+                    
+                        </div>
+                    
+                        <div class="kpi-content">
+                    
+                            <p class="sensor-name">
+                    
+                                Nivel de pH
+                    
+                            </p>
+                    
+                            <h2 class="sensor-value">
+                    
+                                <span id="ph-value">--</span>
+                    
+                                <span class="unit"></span>
+                    
+                            </h2>
+                    
+                        </div>
+                    
+                        <div class="kpi-footer">
+                    
+                            <span
+                                id="ph-trend"
+                                class="trend trend-stable">
+                    
+                                ---
+                    
+                            </span>
+                    
+                        </div>
+                    
+                    </div>
+                    
+                    <!-- =======================================
+                    			CONDUCTIVIDAD ELECTRICA
+                    ==========================================-->
+                    
+					<div 
+						id = "ec-card"
+						
+						class="kpi-card">
+					
+					    <div class="kpi-header">
+					
+					        <div class="sensor-status">
+					
+					            <span class="status-dot"></span>
+					
+					            <span id="ec-status">--</span>
+					
+					        </div>
+					
+					        <div class="icon-circle ec">
+					
+					            <img src="/icons/sensors/zap.svg">
+					
+					        </div>
+					
+					    </div>
+					
+					    <div class="kpi-content">
+					
+					        <p class="sensor-name">
+					
+					            Conductividad
+					
+					        </p>
+					
+					        <h2 class="sensor-value">
+					
+					            <span id="ec-value">--</span>
+					
+					            <span class="unit">ppm</span>
+					
+					        </h2>
+					
+					    </div>
+					
+					    <div class="kpi-footer">
+					
+					        <span
+					            id="ec-trend"
+					            class="trend trend-stable">
+					
+					            ---
+					
+					        </span>
+					
+					    </div>
+					
+					</div>
+					
+                </div>
+
+                <!-- ===================================== -->
+                <!-- Gráfico general -->
+                <!-- ===================================== -->
+                
+                <div class="chart-card">
+                
+                    <div class="chart-header">
+                
+                        <div>
+                
+                            <h2>Gráfico general</h2>
+                
+                            <p>Evolución de las variables ambientales</p>
+                
+                        </div>
+                
+                        <div class="chart-status">
+                
+                            <span class="status-dot"></span>
+                
+                            Tiempo real
+                
+                        </div>
+                
+                    </div>
+                
+                    <div class="chart-body">
+                
+                        <canvas id="generalChart"></canvas>
+                
+                    </div>
+                
+                </div>
+                <!-- ===================================== -->
+                <!-- Gráficos inferiores -->
+                <!-- ===================================== -->
+                
+                <div class="bottom-charts">
+                
+                    <!-- pH -->
+                
+                    <div class="chart-card">
+                
+                        <div class="chart-header">
+                
+                            <div>
+                
+                                <h2>Historial de pH</h2>
+                
+                                <p>Estado químico del suelo</p>
+                
+                            </div>
+                
+                        </div>
+                
+                        <div class="chart-small">
+                
+                            <canvas id="phChart"></canvas>
+                
+                        </div>
+                
+                    </div>
+                
+                    <!-- Conductividad -->
+                
+                    <div class="chart-card">
+                
+                        <div class="chart-header">
+                
+                            <div>
+                
+                                <h2>Conductividad eléctrica</h2>
+                
+                                <p>Disponibilidad de nutrientes</p>
+                
+                            </div>
+                
+                        </div>
+                
+                        <div class="chart-small">
+                
+                            <canvas id="ecChart"></canvas>
+                
+                        </div>
+                
+                    </div>
+                
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="/js/api.js"></script>
+
+    <script src="/js/clock.js"></script>
+
+    <script src="/js/dashboard.js"></script>
+
+    <script src="/js/charts.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+:root{
+
+    --bg:#F8FAFC;
+    --card:#FFFFFF;
+    --sidebar:#1F2937;
+
+    --border:#E8ECEF;
+
+    --text:#111827;
+    --text-light:#6B7280;
+
+    --primary:#22C55E;
+
+    --radius-lg:18px;
+    --radius-md:12px;
+    --radius-sm:8px;
+
+    --shadow:
+        0 4px 12px rgba(0,0,0,.03);
+
+}
